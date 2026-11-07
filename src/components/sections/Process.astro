@@ -1,0 +1,4 @@
+---
+import { processSteps } from '../../data/company';
+---
+<section class="process section-pad" id="processo" aria-labelledby="process-title"><div class="shell process-grid"><div class="process-intro"><p class="eyebrow">03 / O CAMINHO</p><h2 id="process-title" class="display-title reveal">Da primeira ideia <em>ao seu espaço.</em></h2><p>Uma jornada pensada para colocar a sua rotina no centro de cada decisão.</p><small>Etapas propostas para esta apresentação; a confirmar com a Artesanal.</small></div><div class="process-list">{processSteps.map((step) => <div class="process-step"><span>{step.number}</span><div><h3>{step.title}</h3><p>{step.description}</p></div><span class="step-arrow" aria-hidden="true">↗</span></div>)}</div></div></section>

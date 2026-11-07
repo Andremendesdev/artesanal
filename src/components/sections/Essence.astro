@@ -1,0 +1,22 @@
+---
+import { company } from '../../data/company';
+import { Image } from 'astro:assets';
+import nursery from '../../assets/images/nursery.png';
+---
+<section class="essence section-pad" id="essencia" aria-labelledby="essence-title">
+  <div class="shell essence-grid">
+    <div class="essence-content">
+      <p class="eyebrow">01 / NOSSA ESSÊNCIA</p>
+      <h2 id="essence-title" class="display-title reveal">Cada ambiente merece <em>ser único.</em></h2>
+      <div class="essence-copy">
+        <span class="small-rule" aria-hidden="true"></span>
+        <p>Na Artesanal, a marcenaria encontra o cotidiano. Criamos móveis sob medida para transformar necessidades reais em espaços acolhedores, funcionais e cheios de identidade.</p>
+        <p class="location">FEITO EM {company.city.toUpperCase()}</p>
+      </div>
+    </div>
+    <figure class="essence-image">
+      <Image src={nursery} alt="Quarto infantil com marcenaria em madeira, armários azuis e portas com trama de palhinha" widths={[480, 760, 1086]} sizes="(max-width: 900px) 100vw, 40vw" format="webp" loading="lazy" />
+    </figure>
+  </div>
+  <div class="material-band" aria-hidden="true"><span>FORMA</span><span>MATÉRIA</span><span>INTENÇÃO</span><span>DETALHE</span></div>
+</section>

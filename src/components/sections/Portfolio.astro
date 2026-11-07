@@ -1,0 +1,28 @@
+---
+import { projects } from '../../data/projects';
+import { whatsappUrl } from '../../lib/whatsapp';
+import { Image, getImage } from 'astro:assets';
+const fullImages = await Promise.all(projects.map((project) => getImage({ src: project.image, width: 1500, format: 'webp' })));
+---
+<section class="portfolio section-pad" id="portfolio" aria-labelledby="portfolio-title">
+  <div class="shell"><div class="section-top"><p class="eyebrow">02 / PORTFÓLIO</p><p class="section-index">AMBIENTES & DETALHES</p></div><div class="portfolio-head"><h2 id="portfolio-title" class="display-title reveal">O que fazemos <em>ganha vida.</em></h2><p>Materiais, escolhas e detalhes que tornam cada espaço particular.</p></div>
+    <div class="portfolio-grid">{projects.map((project, index) => <article class={`portfolio-item ${project.className}`}><button type="button" class="project-image" data-lightbox-index={index} aria-label={`Ampliar imagem: ${project.title}`}><Image src={project.image} alt={project.alt} widths={[480, 800, 1200]} sizes="(max-width: 600px) 100vw, 60vw" format="webp" loading="lazy" /></button><div class="portfolio-caption"><span>{project.number} / {project.title}</span><a href={whatsappUrl(`um projeto de móveis sob medida como ${project.title.toLowerCase()}`)} target="_blank" rel="noopener noreferrer" aria-label={`Conversar sobre ${project.title}`}>↗</a></div></article>)}</div>
+    <p class="portfolio-disclaimer">Fotografias enviadas para esta apresentação. Confirmar autoria e autorização de uso antes da publicação.</p>
+  </div>
+  <dialog class="lightbox" aria-label="Galeria de projetos"><button type="button" class="lightbox-close" aria-label="Fechar imagem">×</button><button type="button" class="lightbox-prev" aria-label="Imagem anterior">←</button><img alt="" /><button type="button" class="lightbox-next" aria-label="Próxima imagem">→</button><p class="lightbox-caption"></p></dialog>
+  <script define:vars={{ images: fullImages.map((image) => image.src), captions: projects.map((project) => project.alt) }}>
+    const dialog = document.querySelector('.lightbox');
+    const dialogImage = dialog.querySelector('img');
+    let active = 0;
+    const show = (index) => { active = (index + images.length) % images.length; dialogImage.src = images[active]; dialogImage.alt = captions[active]; dialog.querySelector('.lightbox-caption').textContent = captions[active]; };
+    document.querySelectorAll('[data-lightbox-index]').forEach((button) => button.addEventListener('click', () => { show(Number(button.dataset.lightboxIndex)); dialog.showModal(); }));
+    dialog.querySelector('.lightbox-close').addEventListener('click', () => dialog.close());
+    dialog.querySelector('.lightbox-prev').addEventListener('click', () => show(active - 1));
+    dialog.querySelector('.lightbox-next').addEventListener('click', () => show(active + 1));
+    dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('keydown', (event) => { if (event.key === 'ArrowLeft') show(active - 1); if (event.key === 'ArrowRight') show(active + 1); });
+    let touchX = 0;
+    dialog.addEventListener('touchstart', (event) => { touchX = event.changedTouches[0].screenX; }, { passive: true });
+    dialog.addEventListener('touchend', (event) => { const delta = event.changedTouches[0].screenX - touchX; if (Math.abs(delta) > 50) show(active + (delta < 0 ? 1 : -1)); }, { passive: true });
+  </script>
+</section>

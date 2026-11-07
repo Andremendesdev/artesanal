@@ -1,0 +1,14 @@
+---
+import { whatsappUrl } from '../../lib/whatsapp';
+import { Image } from 'astro:assets';
+import dining from '../../assets/images/dining.png';
+---
+<section class="hero" aria-labelledby="hero-title">
+  <Image class="hero-photo" src={dining} alt="Sala de jantar integrada à cozinha com mesa e teto de madeira" widths={[640, 960, 1440, 1920]} sizes="100vw" format="webp" loading="eager" fetchpriority="high" />
+  <div class="hero-inner shell">
+    <div class="hero-kicker"><span class="line"></span> MARCENARIA ARTESANAL · PIRAJU, SP</div>
+    <h1 id="hero-title" class="hero-title">O espaço é seu.<br /><em>A história também.</em></h1>
+    <div class="hero-bottom"><p>Móveis sob medida criados para acompanhar a sua maneira de viver. Um encontro entre intenção, matéria e cuidado.</p><a class="round-link" href={whatsappUrl()} target="_blank" rel="noopener noreferrer" aria-label="Conversar sobre meu projeto">↗</a></div>
+    <div class="hero-foot"><span>ARTESANAL MÓVEIS E DECORAÇÃO</span><a href="#essencia">DESCUBRA <span aria-hidden="true">↓</span></a><span>01 / 04</span></div>
+  </div>
+</section>
